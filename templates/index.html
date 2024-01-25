@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivational Videos</title>
+</head>
+<body>
+   
+    <h1>Motivational Videos</h1>
+
+    <h2>Video for Morning Time</h2>
+    <p>{{ morning_quote }}</p>
+    <video width="640" height="360" controls>
+        <source src="{{ url_for('static', filename=morning_video) }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <h2>Video for Evening Time</h2>
+    <p>{{ evening_quote }}</p>
+    <video width="640" height="360" controls>
+        <source src="{{ url_for('static', filename=evening_video) }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</body>
+</html>
