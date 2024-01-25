@@ -30,7 +30,7 @@ def generate_motivational_quote():
     
     completion = client.completions.create(
     model="gpt-3.5-turbo-instruct",
-    prompt="Say this is a test",
+    prompt=prompt,
     max_tokens=7,
     temperature=0
     )
