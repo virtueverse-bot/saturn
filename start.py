@@ -34,7 +34,7 @@ def generate_motivational_quote():
     max_tokens=7,
     temperature=0
     )
-    quote = completion['choices'][0]['text'].strip()
+    quote = completion.choices[0].text.strip()
     # quote = "i hate niggas"
     return quote
 
