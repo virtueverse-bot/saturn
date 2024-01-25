@@ -1,20 +1,18 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9.6
+# Use the Railway nix builder image
+FROM railwayapp/builder:latest AS builder
 
-# Install system dependencies (including ImageMagick)
-RUN apt-get update && apt-get install -y \
-    imagemagick
-
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the current directory contents into the container
-COPY . /app
+# Copy the nix files
+COPY shell.nix ./
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Build the dependencies using nix
+RUN nix-shell --run true
 
+# Copy the rest of the application code
+COPY . .
 
-
-# Run app.py when the container launches
-CMD ["python3", "start.py"]
+# Build the application
+RUN nix-shell --run "chmod +x start.sh"
+CMD ["./start.sh"]
