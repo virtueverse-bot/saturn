@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.x
+FROM python:3.9.6
 
 # Install system dependencies (including ImageMagick)
 RUN apt-get update && apt-get install -y \
