@@ -11,7 +11,7 @@ from datetime import date
 app = Flask(__name__, static_url_path='/static')
 
 # Set your OpenAI API key
-openai.api_key = "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"
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 # Function to generate a motivational quote using ChatGPT
 def generate_motivational_quote():
