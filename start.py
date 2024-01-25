@@ -1,17 +1,17 @@
-import openai
 import moviepy.editor as mp
 import os
 import random
 from moviepy.video.fx.all import resize, colorx
 from flask import Flask, render_template, redirect, url_for, request
 from datetime import date
+from openai import OpenAI
 
-
+client = OpenAI()
 
 app = Flask(__name__, static_url_path='/static')
 
 # Set your OpenAI API key
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+OpenAI.api_key = os.getenv('OPENAI_API_KEY')
 
 # Function to generate a motivational quote using ChatGPT
 def generate_motivational_quote():
@@ -27,14 +27,14 @@ def generate_motivational_quote():
     Do not make them too long, 1 or 2 sentences is enough
 
     """
-    response = openai.Completion.create(
-        engine="gpt-3.5-turbo-instruct",  # You can try different engines based on availability and performance
-        prompt=prompt,
-        max_tokens=100,
-        temperature=0.7,
-        n=1,
+    
+    completion = client.completions.create(
+    model="gpt-3.5-turbo-instruct",
+    prompt="Say this is a test",
+    max_tokens=7,
+    temperature=0
     )
-    quote = response['choices'][0]['text'].strip()
+    quote = completion['choices'][0]['text'].strip()
     # quote = "i hate niggas"
     return quote
 
