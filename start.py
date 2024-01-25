@@ -38,6 +38,7 @@ def generate_motivational_quote():
     # quote = "i hate niggas"
     return quote
 
+
 # Function to create a video with quote, clips, and music
 def create_motivational_video(quote, clips_folder="clips", music_folder="songs", output_path="motivational_video_4.mp4"):
     # Choose an audio file from the music folder and limit it to the first 12 seconds
