@@ -1,0 +1,10 @@
+[build]
+builder = "nixpacks"
+nixpacksVersion = "1.15.0"
+buildCommand = "echo building!"
+
+[deploy]
+startCommand = "echo starting!"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "never"
