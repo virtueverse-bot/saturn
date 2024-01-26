@@ -5,13 +5,8 @@ from moviepy.video.fx.all import resize, colorx
 from flask import Flask, render_template, redirect, url_for, request
 from datetime import date
 from openai import OpenAI
-import subprocess
 
 client = OpenAI()
-
-project_root = os.path.dirname(os.path.abspath(__file__))
-os.chdir(project_root)
-
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -20,28 +15,46 @@ OpenAI.api_key = os.getenv('OPENAI_API_KEY')
 
 # Function to generate a motivational quote using ChatGPT
 def generate_motivational_quote():
-    prompt = """
-    generate ONE motivational/emotional/stoic quote for an IG reel or TikTok in this theme
+    # prompt = """
+    # generate ONE motivational/emotional/stoic quote for an IG reel or TikTok in this theme
 
-    "Being in the same place as last year should terrify you. Stay focused"
-    "It won't happen overnight. But if you quit, it won't happen at all"
-    "Focus on you until the focus is on you"
-    "If only u knew how many times I stayed up at night thinking about a way to make myself better for u"  
-    "It's time for your comeback."
+    # "Being in the same place as last year should terrify you. Stay focused"
+    # "It won't happen overnight. But if you quit, it won't happen at all"
+    # "Focus on you until the focus is on you"
+    # "If only u knew how many times I stayed up at night thinking about a way to make myself better for u"  
+    # "It's time for your comeback."
 
-    Do not make them too long, 1 or 2 sentences is enough
+    # Do not make them too long, 1 or 2 sentences is enough
 
-    """
+    # """
     
-    completion = client.completions.create(
-    model="gpt-3.5-turbo-instruct",
-    prompt=prompt,
-    max_tokens=7,
-    temperature=0
+    
+  
+    completion = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {
+        "role": "system",
+        "content": "generate ONE motivational/emotional/stoic quote for an IG reel or TikTok in this theme\n\n    \"Being in the same place as last year should terrify you. Stay focused\"\n    \"It won't happen overnight. But if you quit, it won't happen at all\"\n    \"Focus on you until the focus is on you\"\n    \"If only u knew how many times I stayed up at night thinking about a way to make myself better for u\"  \n    \"It's time for your comeback.\"\n\n    Do not make them too long, 1 or 2 sentences is enough"
+        },
+        {
+        "role": "user",
+        "content": ""
+        }
+    ],
+    temperature=1,
+    max_tokens=256,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
     )
-    quote = completion.choices[0].text.strip()
+
+
+    quote = completion.choices[0].message.content.strip()
+    print(quote)
     # quote = "i hate niggas"
     return quote
+
 
 # Function to create a video with quote, clips, and music
 def create_motivational_video(quote, clips_folder="clips", music_folder="songs", output_path="motivational_video_4.mp4"):
@@ -115,7 +128,7 @@ def create_motivational_video(quote, clips_folder="clips", music_folder="songs",
     font_size = min(max_font_size, int(1920 / len(lines)))  # Ensure font size doesn't exceed screen height
 
     # Add text with the motivational quote to the final video
-    txt_clip = mp.TextClip('\n'.join(lines), fontsize=font_size, color='white', font='Ariel')
+    txt_clip = mp.TextClip('\n'.join(lines), fontsize=font_size, color='white', font='LEMON-MILK-Light')
     txt_clip = txt_clip.set_pos('center').set_duration(final_duration)
     final_clip = mp.CompositeVideoClip([dark_overlay, txt_clip])
     # Resize the final video to have dimensions 1080x1920
@@ -154,11 +167,8 @@ def generate():
     # Generate quotes and create videos
     morning_quote = generate_motivational_quote()
     evening_quote = generate_motivational_quote()
-
-    clips_folder_path = os.path.join(os.getcwd(), 'Clips')
-    music_folder_path = os.path.join(os.getcwd(), 'songs')
-    create_motivational_video(morning_quote, output_path=f"static/morning_{formatted_date}.mp4", clips_folder=clips_folder_path, music_folder=music_folder_path)
-    create_motivational_video(evening_quote, output_path=f"static/evening_{formatted_date}.mp4", clips_folder=clips_folder_path, music_folder=music_folder_path)
+    create_motivational_video(morning_quote, output_path=f"static/morning_{formatted_date}.mp4")
+    create_motivational_video(evening_quote, output_path=f"static/evening_{formatted_date}.mp4")
     print(f"Static URL Path: {app.static_url_path}")
 
 
