@@ -1,3 +1,2 @@
 [phases.setup]
-nixPkgs = ["...", "imagemagick", "ffmpeg"]
-
+nixPkgs = ["...", { package = "imagemagick"; }, { package = "ffmpeg"; version = "6.1.1_2"; }]
