@@ -7,15 +7,6 @@ from datetime import date
 from openai import OpenAI
 import subprocess
 
-command = "apt-get update && apt-get install -y imagemagick"
-
-try:
-    subprocess.run(command, shell=True, check=True)
-    print("Command executed successfully")
-except subprocess.CalledProcessError as e:
-    print(f"Error while executing command: {e}")
-
-    
 client = OpenAI()
 
 project_root = os.path.dirname(os.path.abspath(__file__))
