@@ -5,6 +5,7 @@ from moviepy.video.fx.all import resize, colorx
 from flask import Flask, render_template, redirect, url_for, request
 from datetime import date
 from openai import OpenAI
+import json
 
 client = OpenAI()
 
@@ -27,14 +28,30 @@ def generate_motivational_quote():
     Do not make them too long, 1 or 2 sentences is enough
 
     """
-    
-    completion = client.completions.create(
-    model="gpt-3.5-turbo-instruct",
-    prompt=prompt,
-    max_tokens=7,
-    temperature=0
+        
+    completion = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {
+        "role": "system",
+        "content": "generate ONE motivational/emotional/stoic quote for an IG reel or TikTok in this theme\n\n    \"Being in the same place as last year should terrify you. Stay focused\"\n    \"It won't happen overnight. But if you quit, it won't happen at all\"\n    \"Focus on you until the focus is on you\"\n    \"If only u knew how many times I stayed up at night thinking about a way to make myself better for u\"  \n    \"It's time for your comeback.\"\n\n    Do not make them too long, 1 or 2 sentences is enough"
+        },
+        {
+        "role": "user",
+        "content": ""
+        }
+    ],
+    temperature=1,
+    max_tokens=256,
+    top_p=1,
+    frequency_penalty=0,
+    presence_penalty=0
     )
-    quote = completion.choices[0].text.strip()
+
+    
+
+    quote = completion.choices[0].message.content.strip()
+    print(quote)
     # quote = "i hate niggas"
     return quote
 
