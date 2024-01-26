@@ -1,4 +1,3 @@
 [build]
 builder = "nixpacks"
-nixpacksVersion = "1.15.0"
 buildCommand = "echo building!"
