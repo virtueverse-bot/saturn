@@ -127,6 +127,7 @@ def create_motivational_video(quote, clips_folder="clips", music_folder="songs",
     max_font_size = 32  # Adjust this based on your preference
     font_size = min(max_font_size, int(1920 / len(lines)))  # Ensure font size doesn't exceed screen height
 
+    print(mp.TextClip.list('font'))
     # Add text with the motivational quote to the final video
     txt_clip = mp.TextClip('\n'.join(lines), fontsize=font_size, color='white', font='Ariel')
     txt_clip = txt_clip.set_pos('center').set_duration(final_duration)
