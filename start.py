@@ -183,8 +183,10 @@ def generate():
     morning_quote = generate_motivational_quote()
     evening_quote = generate_motivational_quote()
 
-    clips_folder_path = os.path.join(os.getcwd(), 'Clips')
-    music_folder_path = os.path.join(os.getcwd(), 'songs')
+    clips_folder_path = "/app/Clips/" 
+    # os.path.join(os.getcwd(), 'Clips')
+    music_folder_path = "/app/songs/" 
+    # os.path.join(os.getcwd(), 'songs')
     create_motivational_video(morning_quote, output_path=f"static/morning_{formatted_date}.mp4", clips_folder=clips_folder_path, music_folder=music_folder_path)
     create_motivational_video(evening_quote, output_path=f"static/evening_{formatted_date}.mp4", clips_folder=clips_folder_path, music_folder=music_folder_path)
     print(f"Static URL Path: {app.static_url_path}")
