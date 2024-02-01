@@ -87,7 +87,7 @@ def create_motivational_video(quote, clips_folder="clips", music_folder="songs",
     for clip in clips:
         if isinstance(clip, tuple):  # Check if it's a tuple with duration
             clip_name, duration = clip
-            print(os.path.join(clips_folder, clip_name)
+            print(os.path.join(clips_folder, clip_name))
             video_clip = mp.VideoFileClip(os.path.join(clips_folder, clip_name)).subclip(0, duration)
         else:
             video_clip = mp.VideoFileClip(os.path.join(clips_folder, clip))
