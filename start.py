@@ -88,7 +88,8 @@ def create_motivational_video(quote, clips_folder="clips", music_folder="songs",
         if isinstance(clip, tuple):  # Check if it's a tuple with duration
             clip_name, duration = clip
             print(os.path.join(clips_folder, clip_name))
-            video_clip = mp.VideoFileClip(os.path.join(clips_folder, clip_name)).subclip(0, duration)
+            path = "/app/Clips/resized_Snaptik_6988980223647747334_josh-chapman97-1.mov"
+            video_clip = mp.VideoFileClip(path).subclip(0, duration)
         else:
             video_clip = mp.VideoFileClip(os.path.join(clips_folder, clip))
             print(video_clip)
