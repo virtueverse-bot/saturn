@@ -13,6 +13,7 @@ app = Flask(__name__, static_url_path='/static')
 # Set your OpenAI API key
 OpenAI.api_key = os.getenv('OPENAI_API_KEY')
 
+
 # Function to generate a motivational quote using ChatGPT
 def generate_motivational_quote():
     # prompt = """
@@ -161,7 +162,19 @@ def hello():
 @app.route('/generate')
 def generate():
     
+    
     print("REQUEST TO GENERATE")
+
+    policy_line = '<policy domain="module" rights="read|write" pattern="{PS,PDF,XPS}" />'
+    file_path = '/etc/ImageMagick-6/policy.xml'
+
+    try:
+        with open(file_path, 'a') as file:
+            file.write(policy_line + '\n')
+        print(f"Line added to {file_path}")
+    except Exception as e:
+        print(f"Error: {e}")
+
 
     today_date = date.today()
     formatted_date = today_date.strftime("%Y-%m-%d")
