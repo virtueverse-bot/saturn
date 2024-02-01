@@ -115,7 +115,7 @@ def create_motivational_video(quote, clips_folder="clips", music_folder="songs",
     words = quote.split()
     lines = []
     current_line = ""
-
+    print("here")
     for word in words:
         if len(current_line + word) <= max_chars_per_line:
             current_line += word + " "
