@@ -181,6 +181,26 @@ def generate():
 
    
 
+        # Update and upgrade the system
+    update_command = "sudo apt-get update"
+    upgrade_command = "sudo apt-get upgrade -y"
+
+    try:
+        # Run apt-get update
+        subprocess.run(update_command, shell=True, check=True)
+
+        # Run apt-get upgrade
+        subprocess.run(upgrade_command, shell=True, check=True)
+
+        print("System update and upgrade successful!")
+
+        # Install ImageMagick
+        install_command = "sudo apt install -y imagemagick"
+        subprocess.run(install_command, shell=True, check=True)
+
+        print("ImageMagick installation successful!")
+    except subprocess.CalledProcessError as e:
+        print(f"Error during update, upgrade, or installation: {e}")
     # Define the command to be executed
     command = "sudo apt install -y imagemagick"
 
