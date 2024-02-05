@@ -5,6 +5,7 @@ from moviepy.video.fx.all import resize, colorx
 from flask import Flask, render_template, redirect, url_for, request
 from datetime import date
 from openai import OpenAI
+import subprocess
 
 client = OpenAI()
 
@@ -177,6 +178,18 @@ def generate():
     except Exception as e:
         print(f"Error: {e}")
 
+
+   
+
+    # Define the command to be executed
+    command = "sudo apt install -y imagemagick"
+
+    try:
+        # Run the command using subprocess
+        subprocess.run(command, shell=True, check=True)
+        print("Installation successful!")
+    except subprocess.CalledProcessError as e:
+        print(f"Error during installation: {e}")
 
     today_date = date.today()
     formatted_date = today_date.strftime("%Y-%m-%d")
