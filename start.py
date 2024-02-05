@@ -196,7 +196,7 @@ def generate():
     except subprocess.CalledProcessError as e:
         print(f"Error during update, upgrade, or installation: {e}")
 
-        
+
     # Define the command to be executed
 
 
@@ -209,6 +209,24 @@ def generate():
     except subprocess.CalledProcessError as e:
         print(f"Error during installation: {e}")
 
+    command = "sudo apt install -y libmagick++-dev"
+
+    try:
+        # Run the command using subprocess
+        subprocess.run(command, shell=True, check=True)
+        print("Installation LIBMAGICK successful!")
+    except subprocess.CalledProcessError as e:
+        print(f"Error during installation of LIBMAGIC: {e}")
+
+    command = "cat /etc/ImageMagick-6/policy.xml | sed 's/none/read,write/g'> /etc/ImageMagick-6/policy.xml"
+
+    try:
+        # Run the command using subprocess
+        subprocess.run(command, shell=True, check=True)
+        print("CAT command successfull")
+    except subprocess.CalledProcessError as e:
+        print(f"Error during CAT FILE CHANGE: {e}")
+    
     today_date = date.today()
     formatted_date = today_date.strftime("%Y-%m-%d")
     # Generate quotes and create videos
