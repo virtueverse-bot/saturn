@@ -189,8 +189,7 @@ def generate():
         # Run apt-get update
         subprocess.run(update_command, shell=True, check=True)
 
-        # Run apt-get upgrade
-        subprocess.run(upgrade_command, shell=True, check=True)
+      
 
         print("System update and upgrade successful!")
 
